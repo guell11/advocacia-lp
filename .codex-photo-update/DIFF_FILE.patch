@@ -1,0 +1,311 @@
+# Review diff: inline image payloads omitted; see MODIFIED_FILE.html for exact source.
+# Removed unused --rec declaration only; all other inline image declarations, including both --hero values, are byte-identical.
+diff --git a/index.html b/index.html
+index 8a19884..4412d1e 100644
+--- a/index.html
++++ b/index.html
+@@ -195,6 +195,55 @@ header.st .pill{box-shadow:none}
+ .acts{gap:10px}.acts .btn{padding:12px 18px}.btn.pl{padding:5px 18px 5px 5px}
+ .hbg{height:clamp(300px,70vw,420px);margin-top:22px}
+ .rimg{min-height:260px}}
++/* galeria do escritório */
++.abi{display:block;overflow:hidden}
++.abi:before{z-index:1;pointer-events:none}
++.abi .office-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:var(--navy)}
++.cph{display:block;position:relative;overflow:hidden;background:#e9e3d9}
++.cph .office-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#e9e3d9}
++.office{margin:96px auto 84px}
++.office-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.62fr);align-items:end;gap:24px;margin-bottom:26px}
++.office-head h2{max-width:700px;font-size:clamp(36px,4.8vw,60px);letter-spacing:-.02em}
++.office-head .eb{margin-bottom:12px}
++.office-intro{max-width:340px;margin:0;padding-left:18px;border-left:1px solid #d5bf96;color:var(--mut);font-size:14px;line-height:1.65}
++.office-grid{display:grid;grid-template-columns:minmax(0,2.05fr) minmax(220px,.92fr);align-items:start;gap:18px}
++.office-card{min-width:0;align-self:start;overflow:hidden;border:1px solid rgba(185,138,75,.2);border-radius:24px;background:#fff;box-shadow:0 14px 36px rgba(11,33,70,.08)}
++.office-image{position:relative;display:block;overflow:hidden;background:#e8e2d8;aspect-ratio:3/4}
++.office-image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
++.office-image:hover img{transform:scale(1.025)}
++.office-image:focus-visible{outline-offset:-5px}
++.office-main .office-image{aspect-ratio:3/2}
++.office-main img{object-position:center}
++.office-logo .office-image{aspect-ratio:3/4}
++.office-logo img,.office-portrait img{object-fit:contain;background:#172741}
++.office-details{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:18px}
++.office-landscape .office-image{aspect-ratio:4/3}
++.office-card figcaption{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 18px;border-top:1px solid #eee7dc;color:var(--navy)}
++.office-card figcaption b{font-size:13px;font-weight:600}
++.office-card figcaption small{color:var(--mut);font-size:11px;text-align:right}
++.office-zoom{position:absolute;right:14px;bottom:14px;display:grid;width:40px;height:40px;place-items:center;border:1px solid rgba(255,255,255,.72);border-radius:50%;background:rgba(255,255,255,.92);color:var(--navy);box-shadow:0 4px 16px rgba(11,33,70,.2)}
++.office-zoom .i{font-size:18px}
++.office-dialog{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;max-width:none;max-height:none;margin:0;padding:clamp(16px,3vw,40px);overflow:hidden;border:0;border-radius:0;background:#07162c;color:#fff;grid-template-rows:auto minmax(0,1fr);gap:20px}
++.office-dialog:not([open]){display:none}
++.office-dialog[open]{display:grid}
++.office-dialog::backdrop{background:rgba(3,10,24,.94)}
++.office-dialog__bar{display:flex;width:min(1440px,100%);align-items:center;justify-content:space-between;gap:20px;margin:0 auto}
++.office-dialog__eyebrow{margin-bottom:2px;color:var(--gold2);font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase}
++.office-dialog__caption{color:#fff;font-size:clamp(20px,2vw,28px);font-weight:500}
++.office-dialog__button{display:grid;width:46px;height:46px;flex:none;place-items:center;border:1px solid rgba(217,176,106,.5);border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font:400 28px/1 var(--f);cursor:pointer;transition:background .2s,color .2s}
++.office-dialog__button:hover{background:var(--gold2);color:var(--navy)}
++.office-dialog__button .i{font-size:19px}
++.office-dialog__stage{display:grid;width:100%;max-width:1440px;min-height:0;grid-template-columns:48px minmax(0,1fr) 48px;align-items:center;gap:clamp(8px,2vw,28px);margin:auto}
++.office-dialog__figure{display:grid;min-width:0;min-height:0;grid-template-rows:minmax(0,1fr) auto;justify-items:center;gap:8px;margin:0}
++.office-dialog__image{display:block;width:100%;height:calc(100dvh - 156px);max-height:calc(100dvh - 156px);object-fit:contain;object-position:center;border-radius:8px}
++.office-dialog__count{color:#bdc9dc;font-size:12px;font-variant-numeric:tabular-nums}
++@media(max-width:760px){.office{margin:64px auto 60px}.office-head{grid-template-columns:1fr;gap:12px;margin-bottom:20px}.office-head h2{font-size:clamp(34px,9vw,46px)}.office-intro{max-width:100%;padding-left:14px}.office-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.office-main{grid-column:1/-1}.office-details{display:contents}.office-card{border-radius:18px}.office-card figcaption{flex-direction:column;align-items:flex-start;gap:2px;padding:12px 12px 14px}.office-card figcaption small{text-align:left}.office-zoom{right:10px;bottom:10px;width:34px;height:34px}.office-dialog{padding:12px;gap:12px}.office-dialog__stage{grid-template-columns:42px minmax(0,1fr) 42px;gap:4px}.office-dialog__button{width:42px;height:42px}.office-dialog__image{height:calc(100dvh - 132px);max-height:calc(100dvh - 132px)}}
++@media(max-width:420px){.office-card figcaption b{font-size:12px}.office-grid{gap:10px}.office-details{gap:10px}}
++@media(prefers-reduced-motion:reduce){.office-image img,.office-dialog__button{transition:none}.office-image:hover img{transform:none}}
++.abi .office-photo{object-fit:cover;object-position:center 42%}
++.abi:before{background:linear-gradient(90deg,rgba(11,33,70,.4),transparent 30%)}
++@media(max-width:700px){.abi{height:240px;min-height:220px}.abi .office-photo{object-position:center 48%}.abi:before{background:linear-gradient(180deg,rgba(11,33,70,.24),transparent 15%)}}
++@media(max-width:600px){.office-dialog__stage{position:relative;display:block;width:100%;max-width:none;padding-bottom:48px}.office-dialog__figure{height:100%}.office-dialog__image{height:calc(100dvh - 180px);max-height:calc(100dvh - 180px);width:100%}#office-lightbox-prev,#office-lightbox-next{position:absolute;bottom:0;left:0;width:44px;height:44px}#office-lightbox-next{left:auto;right:0}}
+ </style>
+ </head>
+ <body>
+@@ -261,7 +310,7 @@ header.st .pill{box-shadow:none}
+ </section>
+ 
+ <section id="sobre" class="w sb rv">
+-<div class="ab"><div class="abt"><p class="eb">Sobre o escritório</p><h2>Compromisso<br>com o seu futuro.</h2><p>O escritório Campomori Pierangeli Advocacia e Consultoria Jurídica atua com foco na solução estratégica de demandas, unindo conhecimento técnico, ética e um atendimento personalizado para cada cliente.</p><a class="btn b3" href="#areas">Nossa atuação<svg class="i"><use href="#arr"/></svg></a></div><div class="ph abi" style="background-image:var(--rec)" role="img" aria-label="Recepção do escritório"></div></div>
++<div class="ab"><div class="abt"><p class="eb">Sobre o escritório</p><h2>Compromisso<br>com o seu futuro.</h2><p>O escritório Campomori Pierangeli Advocacia e Consultoria Jurídica atua com foco na solução estratégica de demandas, unindo conhecimento técnico, ética e um atendimento personalizado para cada cliente.</p><a class="btn b3" href="#areas">Nossa atuação<svg class="i"><use href="#arr"/></svg></a></div><picture class="ph abi"><source media="(max-width:700px)" srcset="assets/escritorio/sala-480.webp 480w, assets/escritorio/sala-960.webp 960w, assets/escritorio/sala-1440.webp 1440w" sizes="calc(100vw - 32px)"><img class="office-photo" src="assets/escritorio/marca-960.webp" srcset="assets/escritorio/marca-480.webp 480w, assets/escritorio/marca-960.webp 960w, assets/escritorio/marca-1086.webp 1086w" sizes="(max-width:700px) calc(100vw - 32px), (max-width:1200px) 30vw, 390px" width="1086" height="1448" loading="lazy" decoding="async" alt="Sala de atendimento Campomori Pierangeli, com logotipo e balança da Justiça"></picture></div>
+ <div class="vl"><p class="eb">Nossos valores</p><div class="vg">
+ <div class="vi"><span class="ci"><svg class="i"><use href="#shield"/></svg></span>Compromisso com o cliente</div>
+ <div class="vi"><span class="ci"><svg class="i"><use href="#hand"/></svg></span>Atendimento personalizado</div>
+@@ -271,6 +320,51 @@ header.st .pill{box-shadow:none}
+ <div class="cta"><span class="ci"><svg class="i"><use href="#chat"/></svg></span><h3>Vamos conversar sobre o seu caso?</h3><p>Estamos prontos para entender a sua necessidade e indicar o melhor caminho jurídico.</p><a class="btn b4" href="https://wa.me/5535991095600?text=Ol%C3%A1%21%20Gostaria%20de%20falar%20com%20um%20advogado." target="_blank" rel="noopener"><svg class="i"><use href="#wa"/></svg>Fale Conosco<svg class="i"><use href="#arr"/></svg></a></div>
+ </section>
+ 
++<section id="escritorio" class="w office rv" aria-labelledby="office-title">
++  <div class="office-head">
++    <div><p class="eb">Espaço do escritório</p><h2 id="office-title">Conheça nosso espaço.</h2></div>
++    <p class="office-intro">Ambientes preparados para receber você com clareza e discrição.</p>
++  </div>
++  <div class="office-grid">
++    <figure class="office-card office-main">
++      <a class="office-image office-link" href="assets/escritorio/sala-1440.webp" data-caption="Sala de atendimento" aria-label="Ampliar foto: sala de atendimento">
++        <img src="assets/escritorio/sala-960.webp" srcset="assets/escritorio/sala-480.webp 480w, assets/escritorio/sala-960.webp 960w, assets/escritorio/sala-1440.webp 1440w" sizes="(max-width:760px) calc(100vw - 32px), (max-width:1200px) 66vw, 880px" width="1536" height="1024" loading="lazy" decoding="async" alt="Sala de atendimento com mesa ampla, cadeiras e marca do escritório ao fundo">
++        <span class="office-zoom" aria-hidden="true"><svg class="i"><use href="#zoom"/></svg></span>
++      </a>
++      <figcaption><b>Sala de atendimento</b><small>Ambiente de conversa</small></figcaption>
++    </figure>
++    <figure class="office-card office-logo">
++      <a class="office-image office-link" href="assets/escritorio/marca-1086.webp" data-caption="Marca do escritório" aria-label="Ampliar foto: marca do escritório">
++        <img src="assets/escritorio/marca-960.webp" srcset="assets/escritorio/marca-480.webp 480w, assets/escritorio/marca-960.webp 960w, assets/escritorio/marca-1086.webp 1086w" sizes="(max-width:760px) calc(50vw - 22px), (max-width:1200px) 31vw, 390px" width="1086" height="1448" loading="lazy" decoding="async" alt="Logotipo Campomori Pierangeli e balança da Justiça sobre a mesa">
++        <span class="office-zoom" aria-hidden="true"><svg class="i"><use href="#zoom"/></svg></span>
++      </a>
++      <figcaption><b>Marca do escritório</b><small>Detalhes da sala</small></figcaption>
++    </figure>
++    <div class="office-details">
++      <figure class="office-card office-detail office-portrait">
++        <a class="office-image office-link" href="assets/escritorio/justica-1086.webp" data-caption="Detalhe da Justiça" aria-label="Ampliar foto: estátua da Justiça">
++          <img src="assets/escritorio/justica-960.webp" srcset="assets/escritorio/justica-480.webp 480w, assets/escritorio/justica-960.webp 960w, assets/escritorio/justica-1086.webp 1086w" sizes="(max-width:760px) calc(50vw - 22px), (max-width:1200px) 30vw, 390px" width="1086" height="1448" loading="lazy" decoding="async" alt="Estátua da Justiça sobre mesa de madeira diante da janela">
++          <span class="office-zoom" aria-hidden="true"><svg class="i"><use href="#zoom"/></svg></span>
++        </a>
++        <figcaption><b>Detalhe da Justiça</b><small>Um símbolo do ofício</small></figcaption>
++      </figure>
++      <figure class="office-card office-detail office-portrait">
++        <a class="office-image office-link" href="assets/escritorio/biblioteca-1086.webp" data-caption="Biblioteca jurídica" aria-label="Ampliar foto: biblioteca jurídica">
++          <img src="assets/escritorio/biblioteca-960.webp" srcset="assets/escritorio/biblioteca-480.webp 480w, assets/escritorio/biblioteca-960.webp 960w, assets/escritorio/biblioteca-1086.webp 1086w" sizes="(max-width:760px) calc(50vw - 22px), (max-width:1200px) 30vw, 390px" width="1086" height="1448" loading="lazy" decoding="async" alt="Livros jurídicos organizados em nicho iluminado da estante">
++          <span class="office-zoom" aria-hidden="true"><svg class="i"><use href="#zoom"/></svg></span>
++        </a>
++        <figcaption><b>Biblioteca jurídica</b><small>Livros de referência</small></figcaption>
++      </figure>
++      <figure class="office-card office-detail office-landscape">
++        <a class="office-image office-link" href="assets/escritorio/estante-1440.webp" data-caption="Estante e detalhes" aria-label="Ampliar foto: estante do escritório">
++          <img src="assets/escritorio/estante-960.webp" srcset="assets/escritorio/estante-480.webp 480w, assets/escritorio/estante-960.webp 960w, assets/escritorio/estante-1440.webp 1440w" sizes="(max-width:760px) calc(50vw - 22px), (max-width:1200px) 30vw, 390px" width="1448" height="1086" loading="lazy" decoding="async" alt="Estante iluminada com livros, placa e objetos decorativos">
++          <span class="office-zoom" aria-hidden="true"><svg class="i"><use href="#zoom"/></svg></span>
++        </a>
++        <figcaption><b>Estante e detalhes</b><small>Um canto de leitura</small></figcaption>
++      </figure>
++    </div>
++  </div>
++</section>
+ <section id="depoimentos" class="w ts rv">
+ <div><p class="eb">O que nossos clientes dizem</p><h2>Histórias reais, resultados concretos.</h2><p>A confiança de nossos clientes é o que impulsiona o nosso trabalho e reforça o compromisso com a excelência.</p>
+ <div class="ctl"><button class="rb" id="pv" aria-label="Anterior"><svg class="i"><use href="#arl"/></svg></button><button class="rb" id="nx" aria-label="Próximo"><svg class="i"><use href="#arr"/></svg></button><span class="dots" id="dots"></span></div></div>
+@@ -301,7 +395,7 @@ header.st .pill{box-shadow:none}
+ <button class="btn b1" type="submit">Enviar mensagem<svg class="i"><use href="#arr"/></svg></button>
+ <small><svg class="i"><use href="#lock"/></svg><span>Seus dados estão seguros. Não compartilhamos suas informações.</span></small>
+ </form>
+-<div class="ph cph" style="background-image:var(--rec)" role="img" aria-label="Recepção do escritório Campomori Pierangeli"></div>
++<picture class="ph cph"><source media="(min-width:1361px)" srcset="assets/escritorio/marca-480.webp 480w, assets/escritorio/marca-960.webp 960w, assets/escritorio/marca-1086.webp 1086w" sizes="28vw"><img class="office-photo" src="assets/escritorio/sala-960.webp" srcset="assets/escritorio/sala-480.webp 480w, assets/escritorio/sala-960.webp 960w, assets/escritorio/sala-1440.webp 1440w" sizes="(max-width:1360px) 100vw, 28vw" width="1536" height="1024" loading="lazy" decoding="async" alt="Sala de atendimento Campomori Pierangeli, com logotipo e balança da Justiça"></picture>
+ </div>
+ <div class="fs rv">
+ <div class="fi"><span class="ci"><svg class="i"><use href="#shield"/></svg></span>Atendimento personalizado</div>
+@@ -329,6 +423,17 @@ header.st .pill{box-shadow:none}
+ 
+ <style>:root{--hero:url("data:image/[embedded];base64,[BASE64 OMITTED]");--civil:url("data:image/[embedded];base64,[BASE64 OMITTED]");--fam:url("data:image/[embedded];base64,[BASE64 OMITTED]");--trab:url("data:image/[embedded];base64,[BASE64 OMITTED]");--emp:url("data:image/[embedded];base64,[BASE64 OMITTED]");--pen:url("data:image/[embedded];base64,[BASE64 OMITTED]");--s1:url("data:image/[embedded];base64,[BASE64 OMITTED]");--s2:url("data:image/[embedded];base64,[BASE64 OMITTED]")}</style>
+ <div id="lb" hidden role="dialog" aria-modal="true" aria-label="Publicação ampliada"><button id="lbx" aria-label="Fechar">×</button><div id="lbi"></div></div>
++<dialog class="office-dialog" id="office-lightbox" aria-labelledby="office-lightbox-caption" aria-describedby="office-lightbox-count">
++  <div class="office-dialog__bar">
++    <div class="office-dialog__meta"><p class="office-dialog__eyebrow">Espaço do escritório</p><h2 class="office-dialog__caption" id="office-lightbox-caption">Foto do escritório</h2></div>
++    <button class="office-dialog__button" id="office-lightbox-close" type="button" aria-label="Fechar foto ampliada">×</button>
++  </div>
++  <div class="office-dialog__stage">
++    <button class="office-dialog__button" id="office-lightbox-prev" type="button" aria-label="Foto anterior"><svg class="i"><use href="#arl"/></svg></button>
++    <figure class="office-dialog__figure"><img class="office-dialog__image" id="office-lightbox-image" alt=""><figcaption class="office-dialog__count" id="office-lightbox-count" aria-live="polite"></figcaption></figure>
++    <button class="office-dialog__button" id="office-lightbox-next" type="button" aria-label="Próxima foto"><svg class="i"><use href="#arr"/></svg></button>
++  </div>
++</dialog>
+ <script>
+ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+ $('#y').textContent=new Date().getFullYear();
+@@ -359,6 +464,15 @@ $('#fm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);const t=
+ // entrada suave das seções
+ const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.12});
+ $$('.rv').forEach(el=>io.observe(el));
++const officeDialog=$('#office-lightbox'),officeLinks=$$('.office-link'),officeImage=$('#office-lightbox-image'),officeCaption=$('#office-lightbox-caption'),officeCount=$('#office-lightbox-count');
++if(officeDialog&&typeof officeDialog.showModal==='function'){
++const officeClose=$('#office-lightbox-close'),officePrev=$('#office-lightbox-prev'),officeNext=$('#office-lightbox-next');let officeIndex=0,officeReturn=null,officeLock=null;
++function showOfficePhoto(index){officeIndex=(index+officeLinks.length)%officeLinks.length;const link=officeLinks[officeIndex],thumb=link.querySelector('img');officeImage.srcset=thumb.getAttribute('srcset')||'';officeImage.sizes='calc(100vw - 124px)';officeImage.width=Number(thumb.getAttribute('width'))||1440;officeImage.height=Number(thumb.getAttribute('height'))||960;officeImage.alt=thumb.alt;officeImage.src=link.href;officeCaption.textContent=link.dataset.caption;officeCount.textContent=`Foto ${officeIndex+1} de ${officeLinks.length}`;}
++officeLinks.forEach((link,index)=>link.addEventListener('click',e=>{if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||officeDialog.open)return;e.preventDefault();officeReturn=link;const body=document.body,htmlStyle=document.documentElement.style,bar=window.innerWidth-document.documentElement.clientWidth;officeLock={scrollY:window.scrollY,overflow:body.style.overflow,paddingRight:body.style.paddingRight,scrollBehavior:htmlStyle.scrollBehavior};body.style.overflow='hidden';if(bar>0)body.style.paddingRight=`${(parseFloat(getComputedStyle(body).paddingRight)||0)+bar}px`;showOfficePhoto(index);officeDialog.showModal();officeClose.focus({preventScroll:true});}));
++officePrev.addEventListener('click',()=>showOfficePhoto(officeIndex-1));officeNext.addEventListener('click',()=>showOfficePhoto(officeIndex+1));officeClose.addEventListener('click',()=>officeDialog.close());
++officeDialog.addEventListener('click',e=>{if(e.target===officeDialog)officeDialog.close();});officeDialog.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'){e.preventDefault();showOfficePhoto(officeIndex-1);}if(e.key==='ArrowRight'){e.preventDefault();showOfficePhoto(officeIndex+1);}});
++officeDialog.addEventListener('close',()=>{if(!officeLock)return;const body=document.body,htmlStyle=document.documentElement.style;body.style.overflow=officeLock.overflow;body.style.paddingRight=officeLock.paddingRight;htmlStyle.scrollBehavior='auto';window.scrollTo(0,officeLock.scrollY);htmlStyle.scrollBehavior=officeLock.scrollBehavior;officeReturn?.focus({preventScroll:true});officeReturn=null;officeLock=null;});
++}
+ </script>
+ </body>
+ </html>
+
+diff --git a/.codex-photo-update/ROLLBACK.sh b/.codex-photo-update/ROLLBACK.sh
+new file mode 100755
+--- /dev/null
++++ b/.codex-photo-update/ROLLBACK.sh
+@@ -0,0 +1,17 @@
++#!/usr/bin/env bash
++set -euo pipefail
++
++script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
++project_dir="$(cd -- "$script_dir/.." && pwd)"
++destination="${1:-"$project_dir/index.html"}"
++
++if [[ "$destination" == *:* ]]; then
++  destination="$(cygpath -u "$destination")"
++fi
++if [[ "$destination" != /* ]]; then
++  destination="$project_dir/$destination"
++fi
++
++cp -- "$script_dir/original.html" "$destination"
++printf 'restored=%s\n' "$destination"
++printf 'sha256=%s\n' "$(sha256sum "$destination" | awk '{print $1}')"
+
+diff --git a/.codex-photo-update/verify.mjs b/.codex-photo-update/verify.mjs
+new file mode 100644
+--- /dev/null
++++ b/.codex-photo-update/verify.mjs
+@@ -0,0 +1,116 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import vm from 'node:vm';
++import { fileURLToPath } from 'node:url';
++
++const artifactDir = path.dirname(fileURLToPath(import.meta.url));
++const projectDir = path.resolve(artifactDir, '..');
++const mode = process.argv[2];
++if (!['baseline', 'modified'].includes(mode)) throw new Error('Usage: node verify.mjs baseline|modified [html-path]');
++const defaultFile = mode === 'baseline' ? path.join(artifactDir, 'original.html') : path.join(artifactDir, 'MODIFIED_FILE.html');
++const file = path.resolve(process.argv[3] || defaultFile);
++const html = fs.readFileSync(file, 'utf8');
++const original = fs.readFileSync(path.join(artifactDir, 'original.html'), 'utf8');
++const fail = message => { console.error(`FAIL ${message}`); process.exit(1); };
++const block = (source, start, end) => {
++  const from = source.indexOf(start);
++  if (from < 0) return null;
++  const to = source.indexOf(end, from + start.length);
++  return to < 0 ? null : source.slice(from, to + end.length);
++};
++const equal = (a, b) => a !== null && b !== null && a === b;
++const headerOriginal = block(original, '<header id="hd">', '</header>');
++const heroCssOriginal = block(original, '/* hero */', '/* areas */');
++const heroMarkupOriginal = block(original, '<section id="inicio" class="hero">', '</section>');
++const headerCurrent = block(html, '<header id="hd">', '</header>');
++const heroCssCurrent = block(html, '/* hero */', '/* areas */');
++const heroMarkupCurrent = block(html, '<section id="inicio" class="hero">', '</section>');
++const heroVars = source => [...source.matchAll(/--hero:url\("data:image\/webp;base64,[^"]+"\)/g)].map(match => match[0]);
++const baseHeroVars = heroVars(original);
++const currentHeroVars = heroVars(html);
++const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)];
++try {
++  if (!scripts.length) throw new Error('No inline scripts found');
++  scripts.forEach((script, index) => new vm.Script(script[1], { filename: `inline-script-${index + 1}.js` }));
++} catch (error) { fail(`inline_js_syntax ${error.message}`); }
++if (!equal(headerOriginal, headerCurrent)) fail('header changed');
++if (!equal(heroCssOriginal, heroCssCurrent)) fail('hero CSS changed');
++if (!equal(heroMarkupOriginal, heroMarkupCurrent)) fail('hero markup changed');
++if (JSON.stringify(baseHeroVars) !== JSON.stringify(currentHeroVars)) fail('--hero value changed');
++
++if (mode === 'baseline') {
++  const oldRecRefs = (html.match(/var\(--rec\)/g) || []).length;
++  if (html.includes('<section id="escritorio"') || oldRecRefs !== 2 || html.includes('id="office-lightbox"')) fail('unexpected baseline state');
++  console.log('mode=baseline');
++  console.log(`file=${file}`);
++  console.log('header=PASS');
++  console.log('hero_css=PASS');
++  console.log('hero_markup=PASS');
++  console.log(`hero_values=${baseHeroVars.length};unchanged=PASS`);
++  console.log('inline_js_syntax=PASS');
++  console.log('gallery=ABSENT');
++  console.log(`rec_refs=${oldRecRefs}`);
++  console.log('baseline_state=PASS');
++  process.exit(0);
++}
++
++const galleryStart = html.indexOf('<section id="escritorio"');
++const depoStart = html.indexOf('<section id="depoimentos"');
++const aboutEnd = html.indexOf('</section>', html.indexOf('<section id="sobre"'));
++const gallery = galleryStart >= 0 && depoStart > galleryStart ? html.slice(galleryStart, depoStart) : '';
++const galleryFigures = [...gallery.matchAll(/<figure class="office-card office-(?:main|logo|detail)\b/g)];
++const galleryImages = [...gallery.matchAll(/<img\b[^>]*>/g)].map(match => match[0]);
++const galleryLinks = [...gallery.matchAll(/<a class="office-image office-link"[^>]*>/g)];
++const expectedCaptions = ['Sala de atendimento', 'Marca do escritório', 'Detalhe da Justiça', 'Biblioteca jurídica', 'Estante e detalhes'];
++const captionsPass = expectedCaptions.every(caption => gallery.includes(`data-caption="${caption}"`));
++const imageAttrsPass = galleryImages.length === 5 && galleryImages.every(img => /srcset="[^"]+"/.test(img) && /sizes="[^"]+"/.test(img) && /width="\d+"/.test(img) && /height="\d+"/.test(img) && /loading="lazy"/.test(img) && /decoding="async"/.test(img) && /alt="[^"]+"/.test(img));
++if (!aboutEnd || !(aboutEnd < galleryStart && galleryStart < depoStart)) fail('gallery order');
++if (galleryFigures.length !== 5 || galleryLinks.length !== 5 || !captionsPass) fail(`gallery figures=${galleryFigures.length}, links=${galleryLinks.length}, captions=${captionsPass}`);
++if (!imageAttrsPass) fail('gallery responsive image attributes');
++if (!html.includes('<dialog class="office-dialog" id="office-lightbox"') || !html.includes('officeDialog.showModal()') || !html.includes("officeDialog.addEventListener('close'") || !html.includes("e.key==='ArrowLeft'") || !html.includes("e.key==='ArrowRight'") || !html.includes("officePrev.addEventListener('click'") || !html.includes("officeNext.addEventListener('click'") || !html.includes('officeReturn?.focus({preventScroll:true})')) fail('native gallery dialog controls');
++if (!html.includes('.office-dialog__image{') || !html.includes('object-fit:contain')) fail('modal image fit');
++const aboutPicture=html.includes('<picture class="ph abi"><source media="(max-width:700px)"')&&html.includes('sala-480.webp 480w, assets/escritorio/sala-960.webp 960w, assets/escritorio/sala-1440.webp 1440w');
++const contactDesktop=html.includes('<picture class="ph cph"><source media="(min-width:1361px)" srcset="assets/escritorio/marca-480.webp 480w, assets/escritorio/marca-960.webp 960w, assets/escritorio/marca-1086.webp 1086w"');
++const contactFallback=html.includes('src="assets/escritorio/sala-960.webp" srcset="assets/escritorio/sala-480.webp 480w, assets/escritorio/sala-960.webp 960w, assets/escritorio/sala-1440.webp 1440w"');
++const contactFit=html.includes('.cph .office-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#e9e3d9}');
++const aboutDesktopFit=html.includes('.abi .office-photo{object-fit:cover;object-position:center 42%}');
++const aboutMobileFrame=html.includes('.abi{height:240px;min-height:220px}')&&html.includes('.abi:before{background:linear-gradient(180deg,rgba(11,33,70,.24),transparent 15%)}');
++const modalMobileFit=html.includes('@media(max-width:600px){.office-dialog__stage{position:relative;display:block;width:100%;max-width:none;padding-bottom:48px}')&&html.includes('#office-lightbox-prev,#office-lightbox-next{position:absolute;bottom:0;left:0;width:44px;height:44px}');
++if(!aboutPicture||!contactDesktop||!contactFallback||!contactFit||!aboutDesktopFit||!aboutMobileFrame||html.includes('var(--rec)')||/--rec\s*:/.test(html))fail('responsive About/Contact photo slots');
++if(!modalMobileFit)fail('mobile modal controls and image stage');
++const assetRefs = [...new Set([...html.matchAll(/assets\/escritorio\/[A-Za-z0-9-]+\.webp/g)].map(match => match[0]))];
++const missing = assetRefs.filter(relative => !fs.existsSync(path.join(projectDir, relative)));
++const expected = ['sala-480.webp','sala-960.webp','sala-1440.webp','marca-480.webp','marca-960.webp','marca-1086.webp','contato-480.webp','contato-960.webp','contato-1440.webp','justica-480.webp','justica-960.webp','justica-1086.webp','biblioteca-480.webp','biblioteca-960.webp','biblioteca-1086.webp','estante-480.webp','estante-960.webp','estante-1440.webp'];
++const badWebp = expected.filter(name => {
++  const full = path.join(projectDir, 'assets', 'escritorio', name);
++  if (!fs.existsSync(full)) return true;
++  const bytes = fs.readFileSync(full);
++  return bytes.length < 16 || bytes.subarray(8, 12).toString('ascii') !== 'WEBP';
++});
++const referencedExpected=expected.filter(name=>!name.startsWith('contato-'));
++if (missing.length || badWebp.length || assetRefs.length !== referencedExpected.length) fail(`assets refs=${assetRefs.length}, missing=${missing.join(',')}, invalid=${badWebp.join(',')}`);
++const assetBytes = expected.reduce((total, name) => total + fs.statSync(path.join(projectDir, 'assets', 'escritorio', name)).size, 0);
++const recRemoved = !html.includes('var(--rec)') && !/--rec\s*:/.test(html);
++const oldModalPreserved = block(original, '<div id="lb"', '</div>') === block(html, '<div id="lb"', '</div>');
++const noNewDataUris = (html.match(/data:image\/[^;]+;base64,/g) || []).length === (original.match(/data:image\/[^;]+;base64,/g) || []).length - 1;
++if (!oldModalPreserved || !recRemoved || !noNewDataUris) fail('existing lightbox or embedded image payload changed unexpectedly');
++console.log('mode=modified');
++console.log(`file=${file}`);
++console.log('header=PASS');
++console.log('hero_css=PASS');
++console.log('hero_markup=PASS');
++console.log(`hero_values=${currentHeroVars.length};unchanged=PASS`);
++console.log('inline_js_syntax=PASS');
++console.log('gallery_items=5');
++console.log('gallery_order=PASS');
++console.log('gallery_responsive_images=PASS');
++console.log('native_dialog_keyboard_focus_scroll=PASS');
++console.log('about_contact_responsive=PASS');
++console.log('contact_desktop_portrait=PASS');
++console.log('contact_fallback_landscape=PASS');
++console.log('about_mobile_fullbleed=PASS');
++console.log('mobile_modal_full_width=PASS');
++console.log(`asset_refs=${assetRefs.length};webp_variants=${expected.length};bytes=${assetBytes}`);
++console.log('existing_lightbox=PASS');
++console.log('old_rec_removed=PASS');
++console.log('no_new_base64=PASS');

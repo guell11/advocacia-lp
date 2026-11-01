@@ -1,0 +1,116 @@
+VERIFICATION — atualização de fotos do escritório
+
+Causa
+Cinco fotos reais estavam sem referência no site; About e Contato usavam `var(--rec)` genérico.
+
+Campos/branch alterados
+- About `.abi`: retrato da marca no desktop; picture source paisagem em celular, full-bleed, 240 px.
+- Contato `.cph`: retrato `marca` em viewport >=1361 px; paisagem `sala` abaixo; object-fit cover no frame existente.
+- Novo #escritorio entre #sobre e #depoimentos: foto principal + retrato; três detalhes; layout 2/3 + 1/3 desktop, foto principal full-width e quatro cartões em duas colunas no celular.
+- Novo dialog nativo separado de `#lb`; links diretos permanecem no HTML como fallback sem JS. Imagem completa usa object-fit contain, botões anterior/próxima, setas, Escape, backdrop, restauração de foco e scroll.
+- `--rec` e payload antigo removidos. Header, nav, hero, CSS do hero, HTML do hero, os dois valores `--hero` e demais payloads inline mantidos byte-idênticos.
+
+Arquivos absolutos
+- Index ativo: C:\Users\guell\Desktop\asdf\advocacia-lp\index.html
+- MODIFIED_FILE: C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-photo-update\MODIFIED_FILE.html
+- DIFF_FILE: C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-photo-update\DIFF_FILE.patch
+- VERIFICATION: C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-photo-update\VERIFICATION.txt
+- ROLLBACK: C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-photo-update\ROLLBACK.sh
+- Original: C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-photo-update\original.html
+- Verificador: C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-photo-update\verify.mjs
+- Evidência desktop: C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-photo-update\desktop.jpg (151991 bytes)
+- Evidência mobile: C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-photo-update\mobile.jpg (49118 bytes)
+
+Hashes e estado
+- Original antes da edição: SHA-256 `c939d6cb4a38936e5e0897d617dc6117c8f7921277cea3f6f1f4af4c07ed9ed4`, 321171 bytes.
+- Index ativo e MODIFIED_FILE: SHA-256 `75ecd5bc1bb7a9d5f9ca46803909dba648cac26e2246b3fbb95c82ba68f6cdd4`, 292911 bytes; cópias iguais.
+- DIFF_FILE.patch: diff de revisão, 30541 bytes/8 hunks; payloads base64 omitidos. A linha minificada da raiz altera somente `--rec`; ambas ocorrências de `--hero` foram comparadas literalmente e não mudaram.
+- ROLLBACK.sh executável; `test -x` confirmou `executable=PASS` (exit 0).
+
+Imagem principal — ferramenta e prompt
+Ferramenta built-in: `tools.image_gen__imagegen`. Referência: `C:\Users\guell\Desktop\asdf\advocacia-lp\WhatsApp Image 2026-10-29 at 18.52.32.jpeg`.
+Prompt: “Use case: precise-object-edit. Edit target: supplied real law-office photograph. Asset type: editorial website photograph, landscape 3:2. Reframe ONLY by minimal crop into a clean 3:2 landscape image, keep all logo lettering fully visible, keep complete desk silhouette and both guest chairs. Preserve actual room, furniture, architecture, original logo and exact lettering, materials, perspective, warm lighting and colors. No new objects, no removed furniture, no redesign, no stylization, no overlays, no added text, no watermark. Natural photographic result, correct verticals only if needed; do not change identity of office. Output one single full-bleed landscape photograph, not mockup or collage.”
+Arquivo recebido/usado: `C:\Users\guell\.codex\generated_images\01a1992e-0260-7621-a9c4-5eb4b615e7d6\exec-ab08f014-14da-4942-af79-a73b79afbcdc.png`.
+
+WebP responsivos
+Sharp 0.35.5 temporário em `%TEMP%\cpa-photo-sharp`; WebP confirmado. Nenhuma dependência runtime adicionada ao projeto. Retratos limitados à largura original de 1086 px. Saída em `C:\Users\guell\Desktop\asdf\advocacia-lp\assets\escritorio`:
+- sala-480.webp 21540 B; sala-960.webp 79320 B; sala-1440.webp 154022 B.
+- marca-480.webp 40352 B; marca-960.webp 114328 B; marca-1086.webp 136654 B.
+- contato-480.webp 22084 B; contato-960.webp 77094 B; contato-1440.webp 140208 B.
+- justica-480.webp 69724 B; justica-960.webp 228794 B; justica-1086.webp 273828 B.
+- biblioteca-480.webp 22184 B; biblioteca-960.webp 64620 B; biblioteca-1086.webp 80468 B.
+- estante-480.webp 13912 B; estante-960.webp 47034 B; estante-1440.webp 91984 B.
+Total: 1678150 bytes; 15 variantes referenciadas no HTML.
+
+BASELINE
+Comando: `node 'C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-photo-update\verify.mjs' baseline`
+CWD: `C:\Users\guell\Desktop\dataset`.
+Input: `.codex-photo-update\original.html` (padrão do verificador).
+Stdout literal:
+mode=baseline
+file=C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-photo-update\original.html
+header=PASS
+hero_css=PASS
+hero_markup=PASS
+hero_values=2;unchanged=PASS
+inline_js_syntax=PASS
+gallery=ABSENT
+rec_refs=2
+baseline_state=PASS
+Exit status: 0.
+
+MODIFIED
+Comando: `node 'C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-photo-update\verify.mjs' modified 'C:\Users\guell\Desktop\asdf\advocacia-lp\index.html'`
+CWD: `C:\Users\guell\Desktop\dataset`.
+Input: `C:\Users\guell\Desktop\asdf\advocacia-lp\index.html`.
+Stdout literal:
+mode=modified
+file=C:\Users\guell\Desktop\asdf\advocacia-lp\index.html
+header=PASS
+hero_css=PASS
+hero_markup=PASS
+hero_values=2;unchanged=PASS
+inline_js_syntax=PASS
+gallery_items=5
+gallery_order=PASS
+gallery_responsive_images=PASS
+native_dialog_keyboard_focus_scroll=PASS
+about_contact_responsive=PASS
+contact_desktop_portrait=PASS
+contact_fallback_landscape=PASS
+about_mobile_fullbleed=PASS
+mobile_modal_full_width=PASS
+asset_refs=15;webp_variants=18;bytes=1678150
+existing_lightbox=PASS
+old_rec_removed=PASS
+no_new_base64=PASS
+Exit status: 0.
+
+ROLLBACK
+Input: `C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-photo-update\rollback-test.html`, copiada do MODIFIED_FILE final; index ativo não foi destino.
+Comando Git Bash: `'/c/Users/guell/Desktop/asdf/advocacia-lp/.codex-photo-update/ROLLBACK.sh' '/c/Users/guell/Desktop/asdf/advocacia-lp/.codex-photo-update/rollback-test.html'`
+Stdout literal do script:
+restored=/c/Users/guell/Desktop/asdf/advocacia-lp/.codex-photo-update/rollback-test.html
+sha256=c939d6cb4a38936e5e0897d617dc6117c8f7921277cea3f6f1f4af4c07ed9ed4
+Exit status: 0.
+
+Verificação do destino restaurado: `node 'C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-photo-update\verify.mjs' baseline 'C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-photo-update\rollback-test.html'`.
+Stdout literal:
+mode=baseline
+file=C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-photo-update\rollback-test.html
+header=PASS
+hero_css=PASS
+hero_markup=PASS
+hero_values=2;unchanged=PASS
+inline_js_syntax=PASS
+gallery=ABSENT
+rec_refs=2
+baseline_state=PASS
+Exit status: 0. Active index permaneceu SHA-256 `75ecd5bc1bb7a9d5f9ca46803909dba648cac26e2246b3fbb95c82ba68f6cdd4`.
+
+QA visual e revisão
+- CUA: 320, 390, 768 e 1440 px sem overflow; cinco fotos carregadas; console errors=[]; modal Próximo, ArrowLeft, Escape e restore focus passaram.
+- About mobile: 343×240 px, full-bleed. Modal mobile: 366 px úteis, controles 44 px.
+- Contato 1440 px: `marca-480.webp` carregou, `object-fit:cover`, coluna 390×612 preenchida, sem faixas, logotipo inteiro.
+- `desktop.jpg` e `mobile.jpg` reabertos visualmente.
+- Revisão independente do diff final: sem bloqueadores.

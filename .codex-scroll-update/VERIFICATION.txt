@@ -1,0 +1,90 @@
+Changed fields: inline motion CSS block `/* reveals individuais... */` and inline JS reveal/parallax controller. Header, hero/banner, layout, copy, and image payloads unchanged.
+Original SHA-256: 75ecd5bc1bb7a9d5f9ca46803909dba648cac26e2246b3fbb95c82ba68f6cdd4
+Modified/active SHA-256: d1f12f98185323a8c0b84ddd3a3e6a8d7788e584b0c6ca86fca6a9c7ac6a7e5b
+
+Artifact paths:
+MODIFIED_FILE: C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-scroll-update\MODIFIED_FILE.html
+DIFF_FILE: C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-scroll-update\DIFF_FILE.patch
+VERIFICATION: C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-scroll-update\VERIFICATION.txt
+ROLLBACK: C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-scroll-update\ROLLBACK.sh
+Other: C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-scroll-update\verify.mjs; C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-scroll-update\original.html
+
+BASELINE
+Command: node .codex-scroll-update\verify.mjs baseline
+Input: .codex-scroll-update\original.html
+Literal stdout:
+mode=baseline
+file=C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-scroll-update\original.html
+STATIC header=PASS
+STATIC hero_css=PASS
+STATIC hero_markup=PASS
+STATIC hero_values=2;unchanged=PASS
+STATIC inline_js_syntax=PASS
+STATIC baseline_motion=single_rv_observer
+STATIC baseline_state=PASS
+Exit status: 0
+
+MODIFIED
+Command: node .codex-scroll-update\verify.mjs modified
+Input: .codex-scroll-update\MODIFIED_FILE.html
+Literal stdout:
+mode=modified
+file=C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-scroll-update\MODIFIED_FILE.html
+STATIC header=PASS
+STATIC hero_css=PASS
+STATIC hero_markup=PASS
+STATIC hero_values=2;unchanged=PASS
+STATIC inline_js_syntax=PASS
+STATIC markup_outside_css_js=UNCHANGED
+STATIC individual_reveals=PASS
+STATIC stagger=PASS;cap=180ms
+STATIC reduced_motion_css_and_listener=PASS
+STATIC fallback_no_IO=VISIBLE
+STATIC focus_and_hash=IMMEDIATE
+STATIC parallax=office_main_only;desktop_fine_pointer;visible_passive_RAF
+STATIC parallax_scale=1.045;offset_limit=6px;overscan=PASS
+STATIC card_hover_transitions=PASS
+STATIC parallax_reduced_motion=OFF
+STATIC embedded_images=UNCHANGED
+Exit status: 0
+
+ROLLBACK TEST (copy only; active index not restored)
+Commands:
+Copy-Item .codex-scroll-update\MODIFIED_FILE.html .codex-scroll-update\rollback-test.html -Force
+& 'C:\Program Files\Git\bin\bash.exe' -lc "'/c/Users/guell/Desktop/asdf/advocacia-lp/.codex-scroll-update/ROLLBACK.sh' '/c/Users/guell/Desktop/asdf/advocacia-lp/.codex-scroll-update/rollback-test.html'"
+node .codex-scroll-update\verify.mjs baseline .codex-scroll-update\rollback-test.html
+Input: rollback-test.html restored from original.html
+Literal stdout:
+restored=/c/Users/guell/Desktop/asdf/advocacia-lp/.codex-scroll-update/rollback-test.html
+sha256=75ecd5bc1bb7a9d5f9ca46803909dba648cac26e2246b3fbb95c82ba68f6cdd4
+mode=baseline
+file=C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-scroll-update\rollback-test.html
+STATIC header=PASS
+STATIC hero_css=PASS
+STATIC hero_markup=PASS
+STATIC hero_values=2;unchanged=PASS
+STATIC inline_js_syntax=PASS
+STATIC baseline_motion=single_rv_observer
+STATIC baseline_state=PASS
+Exit status: 0
+Restored copy status: baseline behavior; original hash restored. Active index remains modified at SHA-256 d1f12f98185323a8c0b84ddd3a3e6a8d7788e584b0c6ca86fca6a9c7ac6a7e5b.
+
+Static verifier uses source-structure/string checks plus JS parser; it does not claim browser runtime execution. Independent diff review: Sem bloqueadores.
+Browser QA (root CUA, observed)
+- Desktop 1280: `motion-ready` and `parallax-ready`; 45 reveal targets. PageDown moved scrollY 0→551; revealed count 6→11. Newly entered targets moved opacity 0/translateY 28px → opacity 1/translateY 0. Stagger values 0/40/80/120/160ms. Header/hero had 0 reveal targets.
+- Hash `#escritorio`: 7 matching targets immediate/revealed. Tab focus on “Justiça” set `reveal-immediate=true`, opacity 1.
+- Main gallery image computed scale 1.045; scroll moved `--parallax-y` -1.1px→-0.7px; image frame stayed filled and logo remained uncropped.
+- Mobile 390: `parallax-ready=false`; reveal offset 18px; first area card visible after scroll (opacity 1, translateY 0). `.ac` computed transition properties include opacity, translate, transform, box-shadow; transition delays 0 on hover. Reduced-motion runtime toggle and no-IntersectionObserver fallback were not browser-exercised; verifier checks those source branches statically.
+Rollback wrapper result: ROLLBACK_EXIT=0; RESTORED_VERIFY_EXIT=0; ACTIVE_SHA=d1f12f98185323a8c0b84ddd3a3e6a8d7788e584b0c6ca86fca6a9c7ac6a7e5b.
+
+Root commands (PowerShell; executed, all exit statuses 0):
+$P='C:\Users\guell\Desktop\asdf\advocacia-lp'; $D="$P\.codex-scroll-update"
+BASELINE: node "$D\verify.mjs" baseline
+MODIFIED: node "$D\verify.mjs" modified "$P\index.html"
+ROLLBACK preparation: Copy-Item -LiteralPath "$P\index.html" -Destination "$D\rollback-test.html" -Force
+ROLLBACK: & 'C:\Program Files\Git\bin\bash.exe' "$D\ROLLBACK.sh" "$D\rollback-test.html"
+RESTORED: node "$D\verify.mjs" baseline "$D\rollback-test.html"
+Root CUA additional result: modal opened with focus office-lightbox-close; Escape closed it and restored focus to primary office photo link. Console errors: [].
+Screenshots saved and visually inspected:
+C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-scroll-update\desktop.jpg
+C:\Users\guell\Desktop\asdf\advocacia-lp\.codex-scroll-update\mobile.jpg

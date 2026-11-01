@@ -1,0 +1,164 @@
+# Review diff. Inline image payloads omitted; markup, header, hero, and asset bytes remain unchanged.
+diff --git a/index.html b/index.html
+--- a/index.html
++++ b/index.html
+@@ -143,10 +143,16 @@
+ .f2 address{font-style:normal;display:flex;gap:12px;align-items:center}.f2 address .i{font-size:22px;color:var(--gold2)}
+ .f2 p{text-align:center}
+ .f2 blockquote{font:italic 500 16px/1.4 var(--s);color:#e8edf7;padding-left:20px;border-left:1px solid rgba(255,255,255,.2);max-width:230px}
+-/* reveal (único movimento ao rolar) */
+-.js .rv{opacity:0;transform:translateY(22px);transition:opacity .8s,transform .8s}
+-.js .rv.in{opacity:1;transform:none}
+-@media(prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
++/* reveals individuais; sem motion-ready, conteúdo fica visível */
++.motion-ready .reveal-item{--reveal-y:28px;opacity:0;translate:0 var(--reveal-y);transition:opacity .72s cubic-bezier(.22,.72,.25,1),translate .82s cubic-bezier(.22,.72,.25,1);transition-delay:var(--reveal-delay,0ms)}
++.motion-ready .reveal-item.revealed{opacity:1;translate:0 0}
++.motion-ready .reveal-item:focus-within,.motion-ready .reveal-item.reveal-immediate{opacity:1;translate:0 0;transition:none}
++.motion-ready .ac.reveal-item:not(.reveal-immediate):not(:focus-within){transition:opacity .72s cubic-bezier(.22,.72,.25,1),translate .82s cubic-bezier(.22,.72,.25,1),transform .3s,box-shadow .3s;transition-delay:var(--reveal-delay,0ms),var(--reveal-delay,0ms),0s,0s}
++.motion-ready .office-image img{transition:transform .35s ease,scale .9s cubic-bezier(.22,.72,.25,1)}
++.motion-ready .reveal-item:not(.revealed) .office-image img{scale:1.035}
++.motion-ready.parallax-ready .office-main .office-image img{scale:1.045;translate:0 var(--parallax-y,0px);transition:transform .35s ease,translate .14s linear,scale .45s cubic-bezier(.22,.72,.25,1)}
++@media(max-width:760px){.motion-ready .reveal-item{--reveal-y:18px}}
++@media(prefers-reduced-motion:reduce){.motion-ready .reveal-item{opacity:1;translate:0 0;transition:none}.motion-ready .ac.reveal-item:not(.reveal-immediate):not(:focus-within){transition:none}.motion-ready .office-image img{scale:1;transition:none}.motion-ready.parallax-ready .office-main .office-image img{scale:1;translate:none;transition:none}html{scroll-behavior:auto}}
+ /* responsivo */
+ @media(max-width:1360px){.ct{grid-template-columns:1fr 1fr}.cph{grid-column:1/-1;min-height:300px}.ag{grid-template-columns:repeat(3,1fr)}.ar{grid-template-columns:1fr}}
+ @media(max-width:1200px){.sb{grid-template-columns:1fr 1fr}.ab{grid-column:1/-1}.ts{grid-template-columns:1fr}.tc{flex-basis:calc((100% - 18px)/2)}.cs{min-height:0}}
+@@ -461,9 +467,29 @@
+ lb.onclick=cz;addEventListener('keydown',e=>e.key==='Escape'&&cz());
+ // formulário: envia a mensagem pelo WhatsApp do escritório
+ $('#fm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);const t=`Olá! Meu nome é ${f.get('n')}.\nÁrea de interesse: ${f.get('a')}\nE-mail: ${f.get('e')}\nTelefone: ${f.get('t')}\n\n${f.get('m')||''}`;open('https://wa.me/5535991095600?text='+encodeURIComponent(t),'_blank');e.target.reset()};
+-// entrada suave das seções
+-const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.12});
+-$$('.rv').forEach(el=>io.observe(el));
++// entrada sequenciada por item; sem suporte ou com redução de movimento, tudo permanece visível
++const motionTargets=new Set(),reduceMotionQuery=matchMedia('(prefers-reduced-motion: reduce)'),desktopFineQuery=matchMedia('(min-width: 761px) and (pointer: fine)');let revealObserver=null;
++function revealGroup(selector,step=0){$$(selector).forEach((el,index)=>{el.classList.add('reveal-item');el.style.setProperty('--reveal-delay',`${Math.min(index*step,180)}ms`);motionTargets.add(el)})}
++revealGroup('#areas .arh > *',40);revealGroup('#areas .ac',40);
++revealGroup('#sobre .abt');revealGroup('#sobre .vl > .eb');revealGroup('#sobre .vi',40);revealGroup('#sobre .cta');
++revealGroup('#escritorio .office-head > *',48);revealGroup('#escritorio .office-main, #escritorio .office-logo',48);revealGroup('#escritorio .office-details .office-card',42);
++revealGroup('#depoimentos > div:first-child > *',32);revealGroup('#depoimentos .tc',40);revealGroup('#depoimentos .cs');
++revealGroup('#contato .ci2 > .eb, #contato .ci2 > h2, #contato .ci2 > p:not(.eb), #contato .cl li',36);revealGroup('#contato .mp, #contato .fm, #contato .cph',44);revealGroup('#contato .fs .fi',40);
++function revealMotionItem(el,immediate=false){if(immediate)el.classList.add('reveal-immediate');el.classList.add('revealed');revealObserver?.unobserve(el);}
++function observeMotionItems(){if(typeof IntersectionObserver!=='function')return false;try{if(!revealObserver)revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)revealMotionItem(entry.target)}),{threshold:.12,rootMargin:'0px 0px -4% 0px'});}catch{return false;}document.documentElement.classList.add('motion-ready');motionTargets.forEach(el=>{if(!el.classList.contains('revealed'))revealObserver.observe(el)});return true;}
++function syncRevealMotion(){if(reduceMotionQuery.matches||typeof IntersectionObserver!=='function'){document.documentElement.classList.remove('motion-ready');revealObserver?.disconnect();revealObserver=null;motionTargets.forEach(el=>el.classList.add('revealed'));return;}observeMotionItems();}
++function revealHashTarget(){if(!location.hash)return;let target;try{target=document.getElementById(decodeURIComponent(location.hash.slice(1)))}catch{return;}if(!target)return;if(target.matches('.reveal-item'))revealMotionItem(target,true);target.querySelectorAll('.reveal-item').forEach(el=>revealMotionItem(el,true));}
++document.addEventListener('focusin',event=>{const item=event.target.closest('.reveal-item');if(item)revealMotionItem(item,true)});addEventListener('hashchange',revealHashTarget);syncRevealMotion();revealHashTarget();
++// parallax limitado à foto principal; RAF somente quando imagem visível
++const parallaxImage=$('#escritorio .office-main .office-image img');let parallaxEnabled=false,parallaxVisible=false,parallaxFrame=0;
++const parallaxObserver=parallaxImage&&typeof IntersectionObserver==='function'?new IntersectionObserver(entries=>{for(const entry of entries){parallaxVisible=entry.isIntersecting;if(parallaxVisible)scheduleParallax();else resetParallax()}},{rootMargin:'14% 0px 14% 0px',threshold:0}):null;
++function resetParallax(){if(parallaxFrame){cancelAnimationFrame(parallaxFrame);parallaxFrame=0;}parallaxImage?.style.removeProperty('--parallax-y');}
++function scheduleParallax(){if(!parallaxEnabled||!parallaxVisible||parallaxFrame)return;parallaxFrame=requestAnimationFrame(()=>{parallaxFrame=0;if(!parallaxEnabled||!parallaxVisible)return;const rect=parallaxImage.getBoundingClientRect(),range=Math.max(1,(innerHeight+rect.height)/2),progress=(rect.top+rect.height/2-innerHeight/2)/range,offset=Math.max(-6,Math.min(6,-progress*6));parallaxImage.style.setProperty('--parallax-y',`${offset.toFixed(1)}px`)});}
++function onParallaxScroll(){scheduleParallax()}
++function syncParallax(){const enabled=!!(parallaxImage&&parallaxObserver&&!reduceMotionQuery.matches&&desktopFineQuery.matches&&typeof requestAnimationFrame==='function');document.documentElement.classList.toggle('parallax-ready',enabled);if(enabled===parallaxEnabled)return;parallaxEnabled=enabled;if(enabled){parallaxObserver.observe(parallaxImage);addEventListener('scroll',onParallaxScroll,{passive:true});addEventListener('resize',onParallaxScroll,{passive:true});}else{removeEventListener('scroll',onParallaxScroll);removeEventListener('resize',onParallaxScroll);parallaxObserver?.unobserve(parallaxImage);parallaxVisible=false;resetParallax();}}
++function onReducedMotionChange(){syncRevealMotion();syncParallax();}
++function watchMedia(query,listener){if(query.addEventListener)query.addEventListener('change',listener);else query.addListener?.(listener)}
++watchMedia(reduceMotionQuery,onReducedMotionChange);watchMedia(desktopFineQuery,syncParallax);syncParallax();
+ const officeDialog=$('#office-lightbox'),officeLinks=$$('.office-link'),officeImage=$('#office-lightbox-image'),officeCaption=$('#office-lightbox-caption'),officeCount=$('#office-lightbox-count');
+ if(officeDialog&&typeof officeDialog.showModal==='function'){
+ const officeClose=$('#office-lightbox-close'),officePrev=$('#office-lightbox-prev'),officeNext=$('#office-lightbox-next');let officeIndex=0,officeReturn=null,officeLock=null;
+diff --git a/.codex-scroll-update/ROLLBACK.sh b/.codex-scroll-update/ROLLBACK.sh
+new file mode 100755
+--- /dev/null
++++ b/.codex-scroll-update/ROLLBACK.sh
+@@ -0,0 +1,17 @@
++#!/usr/bin/env bash
++set -euo pipefail
++
++script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
++project_dir="$(cd -- "$script_dir/.." && pwd)"
++destination="${1:-"$project_dir/index.html"}"
++
++if [[ "$destination" == *:* ]]; then
++  destination="$(cygpath -u "$destination")"
++fi
++if [[ "$destination" != /* ]]; then
++  destination="$project_dir/$destination"
++fi
++
++cp -- "$script_dir/original.html" "$destination"
++printf 'restored=%s\n' "$destination"
++printf 'sha256=%s\n' "$(sha256sum "$destination" | awk '{print $1}')"
+\ No newline at end of file
+diff --git a/.codex-scroll-update/verify.mjs b/.codex-scroll-update/verify.mjs
+new file mode 100644
+--- /dev/null
++++ b/.codex-scroll-update/verify.mjs
+@@ -0,0 +1,77 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import vm from 'node:vm';
++import { fileURLToPath } from 'node:url';
++
++const artifactDir=path.dirname(fileURLToPath(import.meta.url));
++const projectDir=path.resolve(artifactDir,'..');
++const mode=process.argv[2];
++if(!['baseline','modified'].includes(mode))throw new Error('Usage: node verify.mjs baseline|modified [html-path]');
++const defaultFile=path.join(artifactDir,mode==='baseline'?'original.html':'MODIFIED_FILE.html');
++const file=path.resolve(process.argv[3]||defaultFile);
++const html=fs.readFileSync(file,'utf8');
++const original=fs.readFileSync(path.join(artifactDir,'original.html'),'utf8');
++const fail=message=>{console.error(`FAIL ${message}`);process.exit(1)};
++const block=(source,start,end)=>{const a=source.indexOf(start);if(a<0)return null;const b=source.indexOf(end,a+start.length);return b<0?null:source.slice(a,b+end.length)};
++const header=s=>block(s,'<header id="hd">','</header>');
++const heroCss=s=>block(s,'/* hero */','/* areas */');
++const heroMarkup=s=>block(s,'<section id="inicio" class="hero">','</section>');
++const heroValues=s=>[...s.matchAll(/--hero:url\("data:image\/webp;base64,[^"]+"\)/g)].map(m=>m[0]);
++const dataImages=s=>[...s.matchAll(/data:image\/[^;]+;base64,[A-Za-z0-9+/=]+/g)].map(m=>m[0]);
++const scriptSources=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)];
++try{if(!scriptSources.length)throw new Error('no inline scripts');scriptSources.forEach((script,i)=>new vm.Script(script[1],{filename:`inline-${i+1}.js`}))}catch(error){fail(`inline_js_syntax ${error.message}`)}
++if(header(original)!==header(html))fail('header changed');
++if(heroCss(original)!==heroCss(html))fail('hero CSS changed');
++if(heroMarkup(original)!==heroMarkup(html))fail('hero markup changed');
++if(JSON.stringify(heroValues(original))!==JSON.stringify(heroValues(html)))fail('--hero values changed');
++if(JSON.stringify(dataImages(original))!==JSON.stringify(dataImages(html)))fail('embedded image payload changed');
++const stripInlineMotion=s=>s.replace(/<style(?:\s[^>]*)?>[\s\S]*?<\/style>/gi,'<style></style>').replace(/<script(?:\s[^>]*)?>[\s\S]*?<\/script>/gi,'<script></script>');
++if(stripInlineMotion(original)!==stripInlineMotion(html))fail('HTML markup outside inline CSS/JS changed');
++if(mode==='baseline'){
++  if(!html.includes('.js .rv{opacity:0;transform:translateY(22px)')||!html.includes("$$('.rv').forEach(el=>io.observe(el))")||html.includes('parallax-ready'))fail('unexpected baseline motion state');
++  console.log('mode=baseline');
++  console.log(`file=${file}`);
++  console.log('STATIC header=PASS');
++  console.log('STATIC hero_css=PASS');
++  console.log('STATIC hero_markup=PASS');
++  console.log(`STATIC hero_values=${heroValues(original).length};unchanged=PASS`);
++  console.log('STATIC inline_js_syntax=PASS');
++  console.log('STATIC baseline_motion=single_rv_observer');
++  console.log('STATIC baseline_state=PASS');
++  process.exit(0);
++}
++const required=[
++  ['individual reveals',html.includes('.motion-ready .reveal-item{')&&html.includes('.motion-ready .reveal-item.revealed{')],
++  ['stagger cap',html.includes('Math.min(index*step,180)')],
++  ['small-screen displacement',html.includes('@media(max-width:760px){.motion-ready .reveal-item{--reveal-y:18px}}')],
++  ['reduced-motion CSS/runtime',html.includes('@media(prefers-reduced-motion:reduce){.motion-ready .reveal-item{opacity:1;translate:0 0;transition:none}')&&html.includes('watchMedia(reduceMotionQuery,onReducedMotionChange)')],
++  ['no-IO visible fallback',html.includes("typeof IntersectionObserver!=='function'")&&html.includes("motionTargets.forEach(el=>el.classList.add('revealed'))")],
++  ['focus/hash reveal',html.includes("addEventListener('focusin'")&&html.includes("addEventListener('hashchange',revealHashTarget)")&&html.includes("reveal-immediate")],
++  ['individual section targets',html.includes("revealGroup('#areas .ac'")&&html.includes("revealGroup('#sobre .vi'")&&html.includes("revealGroup('#depoimentos .tc'")&&html.includes("revealGroup('#contato .fs .fi'")],
++  ['office cards in groups',html.includes("revealGroup('#escritorio .office-main, #escritorio .office-logo'")&&html.includes("revealGroup('#escritorio .office-details .office-card'")],
++  ['desktop fine-pointer parallax',html.includes("matchMedia('(min-width: 761px) and (pointer: fine)')")&&html.includes("$('#escritorio .office-main .office-image img')")],
++  ['visible on-demand RAF',html.includes("rootMargin:'14% 0px 14% 0px'")&&html.includes("addEventListener('scroll',onParallaxScroll,{passive:true})")&&html.includes('requestAnimationFrame(()=>{parallaxFrame=0;')],
++  ['parallax reduced-motion teardown',html.includes('!reduceMotionQuery.matches&&desktopFineQuery.matches')&&html.includes("removeEventListener('scroll',onParallaxScroll)")],
++  ['parallax overscan',html.includes('scale:1.045;translate:0 var(--parallax-y,0px)')&&html.includes('Math.max(-6,Math.min(6,-progress*6)')],
++  ['card hover transitions',html.includes('.motion-ready .ac.reveal-item:not(.reveal-immediate):not(:focus-within){transition:opacity')&&html.includes('transform .3s,box-shadow .3s')&&html.includes('transition-delay:var(--reveal-delay,0ms),var(--reveal-delay,0ms),0s,0s')&&html.includes('@media(prefers-reduced-motion:reduce){.motion-ready .reveal-item{opacity:1;translate:0 0;transition:none}.motion-ready .ac.reveal-item:not(.reveal-immediate):not(:focus-within){transition:none}')]
++];
++const missing=required.filter(([,pass])=>!pass).map(([name])=>name);
++if(missing.length)fail(`motion requirements ${missing.join(',')}`);
++console.log('mode=modified');
++console.log(`file=${file}`);
++console.log('STATIC header=PASS');
++console.log('STATIC hero_css=PASS');
++console.log('STATIC hero_markup=PASS');
++console.log(`STATIC hero_values=${heroValues(html).length};unchanged=PASS`);
++console.log('STATIC inline_js_syntax=PASS');
++console.log('STATIC markup_outside_css_js=UNCHANGED');
++console.log('STATIC individual_reveals=PASS');
++console.log('STATIC stagger=PASS;cap=180ms');
++console.log('STATIC reduced_motion_css_and_listener=PASS');
++console.log('STATIC fallback_no_IO=VISIBLE');
++console.log('STATIC focus_and_hash=IMMEDIATE');
++console.log('STATIC parallax=office_main_only;desktop_fine_pointer;visible_passive_RAF');
++console.log('STATIC parallax_scale=1.045;offset_limit=6px;overscan=PASS');
++console.log('STATIC card_hover_transitions=PASS');
++console.log('STATIC parallax_reduced_motion=OFF');
++console.log('STATIC embedded_images=UNCHANGED');
+\ No newline at end of file
